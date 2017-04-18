@@ -1,0 +1,222 @@
+\documentclass[titlepage,12pt]{scrartcl} 
+\usepackage{scrpage2} 
+\clearscrheadfoot 
+\chead[\pagemark]{\pagemark} 
+\pagestyle{scrheadings} 
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\usepackage[latin1]{inputenc} % deutsche eingabe
+\usepackage[ngerman]{babel}
+\usepackage[babel,german=quotes]{csquotes}
+\usepackage[top=15mm,bottom=0mm,left=40mm,right=20mm,includeheadfoot]{geometry} % korrekte abstände
+
+\usepackage{amsmath} % mathematik
+%\usepackage{mathaccent}
+\usepackage{biblatex} % bibtex benutzen :)
+% Einstellungen für das LiteraturVZ
+	\bibliography{literatur}{}
+	\AtBeginBibliography{\renewcommand\mkbibnamelast[1]{\textsc{#1}}} % im literaturverzeichnis wird der name des autors in kapitälchen geschrieben
+	\AtBeginBibliography{\renewcommand\mkbibnamefirst[1]{\textsc{#1}}} % im literaturverzeichnis wird der name des autors in kapitälchen geschrieben
+\usepackage{graphicx} % einbindung von bildern
+
+\usepackage[T1]{fontenc}	% schriftart + makro:
+\newcommand{\changefont}[3] {
+\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+\usepackage{setspace} % zeilenabstand ermöglichen mit \onehalfspacing 
+\onehalfspacing  % 1,5em Zeilenabstand
+
+
+
+\title{Facharbeit: Datenübertragung mit Hilfe des Lasers}
+\author{Jan Schnitker}
+\date{14.02.2011}
+
+\begin{document}
+	
+\begin{small}
+	\begin{titlepage} %seitennummerierung entfernen
+		\begin{center}
+		Annette Gymnasium Münster
+		\hfill Abiturjahrgang 2012
+		\vfill
+		\textbf{\Large Facharbeit}
+		\vfill
+		\textbf{\Huge Datenübertragung mit Hilfe des Lasers}
+		\vfill
+		\textbf{\Large Funktionsweise - Anwendung - Ausschau }
+		
+		\end{center}
+		\vfil
+		\begin{large}
+		\begin{tabular}{lcr}
+			\large Verfasser:&& Jan Schnitker\\
+			\large Kurs:&&Physik\\
+			\large Fachlehrerin:&&Fischedick\\[1em]
+			\large Abgabetermin:&&14.03.2011\\
+		\end{tabular}
+		\end{large}
+	\end{titlepage}
+	
+	\begin{titlepage} %seitennummerierung entfernen
+	\tableofcontents	
+	\end{titlepage}
+	
+	\section{Einleitung}
+	%chronologie von http://de.wikipedia.org/wiki/Telekommunikation 7.3.2011 CITE
+	Schon seit Ewigkeiten versucht der Mensch über immer größer werdende Entfernungen zu kommunizieren. Einen Boten loszuschicken, der die Nachricht - mündlich oder schriftlich - überbringt, ist weder die schnellste noch die sicherste Möglichkeit. Unterwegs kann die Botschaft vergessen oder der Bote aufgehalten werden, sodass die Nachricht (zu) spät oder gar nicht mehr eintrifft. Bei größeren Strecken und der relativ niedrigen Geschwindigkeit des Überbringers ist es auch nicht unwahrscheinlich, dass die Nachricht bei der Ankunft falsch oder schlicht überholt ist. Bei Notrufen oder im Krieg kann solch ein Missgeschick Menschenleben kosten - was also tun?
+	
+	% http://de.wikipedia.org/wiki/Rauchzeichen CITE
+	Aus Kinder- und Jugendbüchern ist die Lösung bekannt: Die Indianer verständigen sich mit Rauchzeichen \cite[vgl.]{wiki:tele:chrono}. Diese aus nassem Gras (o.ä.) entstandenen Wolken steigen zum Himmel auf und sind trotz Erdkrümmung über weite Strecken hin sicht- bzw. lesbar. Je nach Form, Farbe und Rhythmus kommen den Wolken vordefinierte Bedeutungen zu \cite{wiki:rauchz}, es funktioniert so ähnlich wie das im 19ten Jahrhundert entwickelte Morsealphabet \cite[vgl.]{wiki:morsen:history}. %http://de.wikipedia.org/wiki/Morsen#Geschichte
+Dieses basiert auf der Möglichkeit, ein Signal lang oder kurz auszusenden. Eine Kombination aus kurzen und langen Signalen steht für einen Buchstaben, Zahl etc.
+Am bekanntesten ist vermutlich das Notsignal SOS:
+\\ \textit{kurz kurz kurz} \textbf{lang lang lang} \textit{kurz kurz kurz} ($S=\cdot\cdot\cdot$, $O=---$, $SOS=\cdot\cdot\cdot---\cdot\cdot\cdot$) \cite[vgl.]{wiki:morsen:sos}.
+Daten mithilfe des Morsealphabets zu übertragen ist nicht an einen Datenträger gebunden: Die Telegraphie nutzt das Morsealphabet in der elektrischen Leitung, der Amateurfunker oft die Mikrowellen, das Kind klopft seinen ,,Gute Nacht Gruß'' an das Geschwister an die Wand oder schickt eine Nachricht seinem Nachbarn mit der Taschenlampe. 
+
+Dieses letzte Szenario wollen wir nun etwas ausweiten: Die beiden Kinder Alice und Bob beherrschen beide das Morsealphabet und können sich von ihren Zimmerfenstern aus sehen. Sie wohnen in Texas, ihre Häuser sind weit voneinander entfernt, wohl aber noch in Sichtweite. Alice wünscht Bob also nun ,,Gute Nacht'', Bob sieht Alice Taschenlampe schwach am Horizont aufleuchten und grüßt zurück. Da Alice kurzsichtig ist und ihre Brille bereits abgelegt hat, sieht sie Bobs schwache Taschenlampe nicht.
+Um das Problem zu umgehen fokussiert Bob das Licht seiner Taschenlampe mit einer Linse, deren Brennweite in etwa der Entfernung von Alice zu Bob entspricht.
+Bob muss zwar sehr genau auf Alice Fenster zielen, aber Alice ist dafür in der Lage, Bobs Nachrichten auch ohne Brille lesen zu können.
+Das von der Taschenlampe erzeugte Licht streut stark - dieser Streuung wurde mit der Linse entgegengewirkt und das Licht stark gebündelt.
+
+Mit diesem kleinen Beispiel sind wir der wichtigsten Eigenschaft von Lasern nahegekommen: Im Gegensatz zu der Divergenz (Streuung) herkömmlichen Lichts tendiert die des Lasers gegen Null, dadurch verliert der Laserstrahl auch auf große Strecken wenig an Intensität (Leuchtkraft pro Fläche).
+Im Folgenden wird zuerst erklärt, wie ein Laser funktioniert und auf diverse Laserarten eingegangen. Weiterhin wird der Grundgedanke von Fotowiderständen vermittelt. Es folgt ein Versuch zum Thema Datenübertragung mit Hilfe eines Lasers, bei dem Ton übertragen wird. Nach einer Analyse mit Begutachtung der Vor- und Nachteile folgt ein Fazit über die Nützlichkeit des Lasers, Anwendungsbeispiele und ein Ausblick in die Zukunft.
+	%##########################################################################################################################################
+	%debug\newpage
+	\section{Grundlagen}
+		\subsection{Wie funktioniert ein Laser?}
+		Der Name Laser ist eine Abkürzung für seine Funktionsweise:
+		,,LASER'' steht für: ,,\textit{l}ight \textit{a}mplification by \textit{s}timulated \textit{e}mission of \textit{r}adiation'' \cite[S.12]{laser_ldal}, zu Deutsch: ,,Lichtverstärkung durch stimulierten Ausstoß von Strahlung''. 
+\\
+\\
+		%START nach Laser-Das andere Licht, ab seite 29:
+		\begin{quote}
+			,,Zur Realisierung eines Lasers benötigt man drei Grundbausteine [(s. Abbildung~\ref{fig:Aufbau_Schema})]:
+			\begin{description}
+				\item[\textit{Lasermaterial}](LM) oder auch aktives Medium genannt: Hier wird die Laserstrahlung durch stimulierte Ausstrahlung (Emission) erzeugt
+				\item[\textit{Energiezufuhr},]Pumpquelle (E): Mit dieser wird die für die stimulierte Anregung nötige Energie zugeführt, das Lasermaterial wird ständig >>auf Trab<< gehalten - es wird >>gepumpt<<
+				\item[\textit{Resonator}](R) zur Rückkopplung der Laserstrahlung: Er besteht aus rückkoppelnden Elementen wie hochreflektierenden Spiegeln, zwischen denen Laserstrahlung aufgebaut und verstärkt werden kann.'' \cite[S.29]{laser_ldal}
+			\end{description}
+		\end{quote}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=1\textwidth]{img/AufbauEinesLasersSchema.png}
+			\caption{Schematischer Aufbau eines Lasers. Die Spiegel 1 und 2 werden als Resonator bezeichnet.}
+			\label{fig:Aufbau_Schema}
+		\end{figure}
+		Diverse Medien können als Lasermaterial dienen, einzige Voraussetzung ist, dass sie elektromagnetische Strahlung verstärken - denn Lichtwellen sind elektromagnetische Transversalwellen -, meistens geschieht dies durch stimulierte Emission. \cite[S.29]{laser_ldal} führt ,,Gase, Flüssigkeiten, Festkörper, Halbleiter und Plasmen'' auf. Die Wahl des Mediums hängt von dem Einsatzzweck ab: Je nach Frequenz (bzw. Wellenlänge), Intensität und Leuchtintervall (kontinuierlich oder gepulst) kann aus einer großen Vielzahl von Stoffen gewählt werden\cite[vgl. S.30]{laser_ldal}.
+		
+		Laserlicht besteht im Gegensatz zu dem Licht der Sonne oder der Glühbirne nicht aus einem ganzen Spektrum von Frequenzen, also Farben. Wird ein Prisma vor eine Lampe gehalten, so erstrahlt ein breiter Regenbogen. Wird die Lampe durch einen Laser ersetzt, so ergibt sich kein Regenbogen sondern nur ein einzelner einfarbiger Streif, denn das Laserlicht besteht nicht aus einem Frequenzband, sondern es ist monochromatisch (durch die stimulierte Emission sind alle Wellenzüge ,,zeitlich und räumlich kohärent'' \cite[S.19]{laser_ldal}, d.h. sie haben dieselbe Wellenlänge, sind phasen- und richtungsgleich und weisen dieselbe Amplitude auf. Die konstruktive Interferenz sorgt für eine große Gesamtamplitude und entsprechende Intensität) \cite[vgl. S.19f]{laser_ldal}.
+		
+		Doch wie genau funktioniert diese ,,stimulierte Emission''? Für das Verständnis sind einige Vorüberlegungen notwendig: Jedes Atom in dem Lasermaterial besitzt Elektronen. Je weiter diese von dem Atomkern entfernt sind, desto mehr potenzielle Energie besitzen sie. Das ist vergleichbar mit einem Gegenstand, der auf der Erde angehoben wird: Je höher dieser angehoben wird, desto tiefer ist der Krater, den er nach dem loslassen hinterlässt. 
+		\begin{quote},,Nach dem Schalenmodell von Nils Bohr können die Elektronen jedoch nur ganz bestimmte Abstände vom Kern einnehmen. Diese Einschränkung läßt sich vielleicht etwas leichter anhand eines Treppenmodells verstehen [...]. Im Grundzustand liegen die Elektronen am >>Fuß<< der Treppe. Sobald sie nun Energie aufnehmen in Form von Wärme, Strahlung, durch Zusammenstoß mit schnellen Teilchen oder aus starken elektrischen Feldern, können sie auf eine höhere Stufe springen. Je größer die aufgenommene Energie ist, desto höhere Stufen können sie erreichen. (Nach dem Bohrschen Modell bewegen sie sich auf höheren Bahnen.) Jede Stufe entspricht einer ganz bestimmten Energie. Man sagt, die möglichen \textit{Energiezustände} des Atoms sind \textit{diskret} oder die \textit{Energie} ist \textit{gequantelt}.'' \cite[S.30]{laser_ldal}
+		\end{quote}
+		Wäre das nicht der Fall, dann könnten sich die Elektronen im Treppenmodell auch zwischen den Stufen aufhalten, also eine beliebige Menge an Energie aufnehmen. Da dies aber nicht möglich und das Modell keine Rampe ist, ist nur eine stufenweise Bewegung möglich. Die Höhe der Stufen ist allerdings nicht zwingend konstant sondern vielmehr abhängig von der Atomart des Lasermaterials. Im häufigsten Falle verringert sich der Stufenabstand auch mit steigender Energie. Die Stufen werden als ,,Energieniveaus'' oder ,,Energiezustände'' bezeichnet. \cite[vgl. S.30]{laser_ldal}.
+		
+		Kollidiert beispielsweise ein Photon (Lichtwelle) mit einer bestimmten Wellenlänge mit einem Elektron, so wird das Photon absorbiert und die Energie dazu genutzt, das Elektron auf das nächste Energieniveau zu befördern. Das Elektron ist nun im \textit{angeregten Zustand}. Diesen verlässt es spontan nach ca. $10^{-8}$ Sekunden wieder, es steigt eine Stufe ab und \textit{emittiert} ein Photon. Dies wird ,,Spontane Emission'' genannt. Dadurch sind die Wellenzüge noch nicht kohärent. Wenn jedoch ein Elektron im angeregten Zustand erneut mit einem Photon mit entsprechender Wellenlänge kollidiert, so wird das Elektron durch diesen Zusammenstoß dazu veranlasst, eine niedrigere Stufe aufzusuchen und das absorbierte Photon abgestimmt auf das zweite zu emittieren. Das zweite Photon hat das Elektron dazu \textit{stimuliert}, das erste Photon zu \textit{emittieren}: Die beiden Photonen sind nun kohärent und in der Lage, weitere Elektronen zur \textit{Emission} von Photonen zu \textit{stimulieren}. Lawinenartig werden weitere Elektronen zur Emission stimuliert und ein große Anzahl von Photonen gleicher Richtung und Größe findet sich in dem Lasermaterial. Auf einer längeren Strecke (längeres Lasermaterial) können die Photonen mehr Elektronen zur Emission veranlassen, doch das Lasermaterial, des Halbleiterlaser beispielsweise, ist nur etwa $1 mm^3$ groß. Vergleichbar ist eine Schneelawine auf den ersten fünf Metern nicht besonders beeindruckend, eben so wenig beeindruckend ist die bis jetzt entstandene Laserstrahlung. Nach einem Kilometer ist aus der Lawine jedoch eine gewaltige Bedrohung geworden. Eine Vergrößerung der zu durchlaufenden Strecke, also der Länge des Lasermediums, schafft also weitere Verstärkung und ist durch einen Resonator möglich. In Abbildung~\ref{fig:Aufbau_Schema} bilden die beiden Spiegel den Resonator. Die Laserstrahlung wird an die Spiegeln reflektiert, durchläuft das Lasermaterial erneut und stimuliert die Emission weiterer kohärenter Photonen. Einer der beiden Spiegel reflektiert nicht zu 100\%, er ist teildurchlässig und ermöglicht das Austreten des nun sehr intensiven Laserstrahls \cite[vgl. 32-34]{laser_ldal}.
+		
+		Das die gesamte Lawine aufhaltende Problem ist, dass der größere Teil der Schneeflocken eher bremst, als dass er sich mitreißen lässt (an dieser Stelle hinkt der Vergleich). Denn sogar bei extrem hohen Temperaturen befinden sich weniger als die Hälfte der Elektronen im angeregten Zustand (Boltzmann-Verteilung). Im Gegenzug kann mehr als die Hälfte der Elektronen Photonen absorbieren, damit ist die Lawine schon wieder verschwunden. Nun ist also eine Möglichkeit gesucht, einen Großteil der Elektronen in den angeregten Zustand zu versetzten. Die Inversion (Latein: Umkehrung) genannte Möglichkeit besteht darin, die nicht angeregten Elektronen mit starken elektrischen oder magnetischen Feldern aus dem untersten Energieniveau zu entfernen. Außerdem wird mit mehreren Energieniveaus gearbeitet. Es wird nun erst einmal von einem \textbf{3-Niveau-Laser-System} ausgegangen. Durch eine externe Energiezufuhr, z.B. eine starke Lichtquelle (optisches Pumpen), werden die Elektronen angeregt und auf das höchste genutzte, also das dritte Energieniveau, befördert, das sie nach kurzer Verweildauer für das Zweite verlassen (spontane Emission). In dem nun erreichten Energiezustand verweilen sie etwas länger und verlassen diesen, sobald sie von einem entsprechenden Photon getroffen werden, ein weiteres Photon emittierend, um in dem ersten Niveau zu landen, welches auch das Nullniveau ist. Durch den Pumpvorgang werden die Elektronen nun wieder in das dritte Energieniveau befördert \cite[vgl. S.37f]{laser_ldal}.
+		
+		Das \textbf{4-Niveau-Laser-System}, das mit einem Energieniveau mehr arbeitet, liegt nahezu allen Lasertypen zugrunde, da eine wesentlich geringere Pumpleistung nötig ist. Das hängt damit zusammen, dass die stimulierte Emission in dem 4-Niveau-Laser-System zwischen dem dritten und zweiten Energieniveau stattfindet und die benötigte Pumpleistung, um das Elektron von Energieniveau zwei auf Energiezustand vier zu bringen, geringer ist, als die vom Energieniveau null auf Energiezustand drei, wie es beim 3-Niveau-Laser-System der Fall ist \cite[vgl. S.38]{laser_ldal}.
+		
+		%#########################################################################################################
+		\subsection{Verschiedene Laserarten}
+	In dem vorherigen Kapitel wurde bereits erwähnt, dass sich als Lasermaterial eine große Anzahl von Stoffen eignet. Diese Stoffe bestehen natürlich jeweils aus unterschiedlichen Molekülzusammensetzungen bzw. Atomen, die wiederum unterschiedliche Eigenschaften bezüglich der Abstände der Energieniveaus haben. Abhängig davon ist die Wellenlänge. Der Stoff wird also primär danach ausgesucht, was für eine Wellenlänge benötigt wird. Genannt werden nun einige Lasertyp Beispiele, sortiert nach dem Aggregatzustand des Lasermaterials:
+	
+	\begin{description}
+		\item[Festkörperlaser]wie ,,Neodym-YAG-Laser'' zeichnen sich aus durch hohe Ausgangsleistungen im Pulsbetrieb (Gigawatt) so wie auch im kontinuierlichen Betrieb (bis 600 Watt) und eine sehr geringe Divergenz. Eingesetzt werden sie in der groben Materialbearbeitung, Kernfusion, Nachrichtenübertragung (Weltraum) und militärischen Systemen.
+		\item[Gaslaser]wie der ,,Excimerlaser'' haben eine kurze Wellenlänge, sind stark fokussierbar und erreichen sowohl im Pulsbetrieb enorme Spitzenleistungen (bis Gigawatt) als auch im kontinuierlichen Betrieb beträchtliche Leistungen (bis Kilowatt). Verwendet werden sie in der Messtechnik, Qualitätskontrolle, zur industriellen Fertigung sowie für Laserwaffen und vielen weiteren Gebieten. Sie werden zum Pumpen von Flüssigkeitslasern und natürlich in der Medizin für Augenoperationen, als nanometergenaues Skalpell et cetera gebraucht.
+		\item[Flüssigkeitslaser]haben im Gegensatz zu anderen Lasern ein Wellenlängendurchstimmbarkeit (viele haben überhaupt keine), die ihnen das emittieren von Laserstrahlung in wählbaren Frequenzen ermöglicht, was diesem Lasertyp die Nutzung in Forschungsrichtungen wie Atom- und Molekülphysik und Schadstoffüberwachung erschließt. Sie benötigen allerdings einen Laser zum Pumpen bzw. zur Aufrechterhaltung der Inversion.
+		\item[Halbleiterlaser]sind besonders klein und preiswert. Ihre Ausgangsleistung befindet sich im Milliwattbereich. Sie sind überall beim Anwender zu finden: In CD- und DVD-Lese und -Schreibgeräten, bei der Barcodeabtastung, in Lichtschranken, der Nachrichten- bzw. Datenübertragung und der steuernden Sensorelektronik von verarbeitenden Maschinen. \cite[vgl. S.25f, Tabelle 2]{laser_ldal}
+	\end{description}
+		\subsection{Fotowiderstände}
+	%debug\newpage
+	%#########################################################################################
+	%#########################################################################################
+	%#########################################################################################
+	
+	\section{Hauptteil}
+		\subsection{Versuch}	
+			\textit{Da der Hauptversuch trotz aller Anstrengungen keinerlei Anstalten machte, das von ihm geforderte zu tun, wird auf einen älteren, hinführenden Versuch zurückgegriffen.}
+			\subsubsection*{Versuchsaufbau}
+			Ein Funktionsgenerator erzeugt eine Rechteckspannung, deren positiver Anteil durch eine Diode einen Halbleiterlaser antreibt. Er leuchtet entsprechend in der Frequenz des Funktionsgenerators. Der Laserstrahl ist auf einen Fotowiderstand (LDR) eines weiteren Versuchsaufbaus gerichtet. Dieser zweite Aufbau sieht wie folgt aus: Je nach Lichteinfall führt ein Transistor, an dwessen Basis der Fotowiderstand ist, einem Lautsprecher Strom zu. Der entsprechende Schaltplan findet sich in Abbildung~\ref{fig:Versuch1}.
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.5\textwidth]{img/Versuch1.png}
+				\caption{Übertragung und Ausgabe einer Frequenz. $U_I=4,5V$ Wechselspannung, $L=Laserdiode$, $U_{II}=9V Gleichspannung$, $R_I=Fotowiderstand$, $R_{II}\leq 1M\Omega$, je nach Umgebungshelligkeit.}
+				\label{fig:Versuch1}
+			\end{figure}
+			\subsubsection*{Versuchsdurchführung}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[height=0.3\textwidth]{img/Aufbau_Versuch_Gesamt3.jpg} \
+				\includegraphics[height=0.3\textwidth]{img/Aufbau_Versuch_pLaser.JPG}
+				\caption{Versuchsaufbau: Gesamte Schaltung (links), Eingeschaltet (rechts).}
+				\label{fig:Versuch1}
+			\end{figure}
+			Zunächst wurde der Laser auf den Fotowiderstand ausgerichtet, danach die Batterie an den Empfänger angeschlossen. Zuletzt wurde mit dem Funktionsgenerator eine Rechteckspannung bei $U_I$ angelegt. 
+			Bei der Wahl verschiedener Frequenzen und Stromstärken ließ sich folgendes Beobachten:
+			\begin{description}
+				\item[1. $f=1Hz$ $U_I=4,5V$]Der Laser ist abwechselnd eine Sekunde lang eingeschaltet, danach wieder eine Sekunde lang ausgeschaltet. Den Lautsprecher hört man beim Umschalten von An nach Aus und anders herum leise klacken, also ein mal pro Sekunde, zwei mal pro zwei Sekunden.
+				\item[2. $f=1000Hz$ $U_I=4,5V$]Der Laser scheint durchgehend zu leuchten, der Lautsprecher produziert einen durchgehenden, gut hörbaren Ton.
+				\item[3. $f=1000Hz$ $U_I=2,0V$]Der Laser scheint durchgehend schwach zu leuchten, der Lautsprecher produziert einen durchgehenden, gut hörbaren Ton - jedoch leiser als in der Konfiguration $f=1000Hz$ $U_I=4,5V$.
+				\item[4. $f=15kHz$ $U_I=4,5V$]Der Laser scheint durchgehend zu leuchten, der Lautsprecher produziert einen unangenehmen, sehr hohen Ton.
+				\item[5. $f=20kHz$ $U_I=4,5V$]Der Laser scheint durchgehend zu leuchten, der Lautsprecher produziert keinen hörbaren Ton mehr, der Körper signalisiert Unwohlsein.
+			\end{description}
+		\subsection{Versuchsauswertung}
+		Bereits an dem ersten Versuch mit $f=1Hz$ lässt sich erkennen, dass der Laser die Tonausgabe steuern kann. Durch die vom Funktionsgenerator erzeugte Rechteckspannung, unendlich kurz $0V$, $+4,5V$, unendlich kurz $0V$ und $-4,5V$ erzeugt, und die Diode, die nur die positive Spannung herausfiltert (da der Laser korrekt gepolt sein muss) kennt der Laser nur zwei Zustände: An und Aus, denn die Diode lässt die $+4,5V$ wie sie sind, aus den $-4,5V$ werden allerdings $0V$. Während der Funktionsgenerator also einen Ausschlag ins Positive und einen ins Negative aufweist, weist der Laser nur einen einzigen Ausschlag auf, er leuchtet einmal. Obwohl der Laser die Hälfte des Signals ignoriert, gibt der Lautsprecher die vom Funktionsgenerator erzeugte Frequenz wieder. Mit dem erreichen des Nullniveaus (Laser aus) bewegt sich die Membran in ihre Ausgangsposition zurück. Wird das Nullniveau wieder verlassen, so bewegt sich die Membran, so weit es die angelegte Spannung zulässt, von der Ausgangsposition fort. Ohne eine negative Spannung, also einen dritten Zustand auskommend, schwingt die Membran zwei Mal pro Ausschlag des Lasers. 
+		
+		Wie an den Versuchen 2, 4 und 5 feststellbar war, ist die Frequenz des Lautsprechers äquivalent zu der des Funktionsgenerators:  $f_{FGenerator}=f_{LSprecher}$.
+		Versuche 2 und 4 zeigen, dass Lautstärke proportional zu der maximalen Spannung \^U des Generators ist. Ist die Spannung \^U größer, so steigt damit die Intensität des Lasers. 
+		Damit sinkt der Widerstand des Fotowiderstandes, auf den nun mehr Licht einfällt, und der Transistor emittiert eine höhere Spannung. 
+		Diese lässt die Membran des Lautsprechers weiter auslenken: \^U $~$ \^y$_{LSprecherMembran} ~ Lautstärke$.
+		\subsection{Analyse}
+			\subsubsection{Fehleranfälligkeit}
+			Obwohl das Experiment auch bei einer Entfernung von $>1m$ des Senders vom Empfänger einwandfrei funktionierte, ist es sehr fehleranfällig. Schon die kleinste Veränderung der Position des Senders oder seiner Ausrichtung kann den Laserstrahl von dem Fotowiderstand abbringen. Das Signal geht dann ins Leere, der Lautsprecher ,,schweigt''. Im Einsatz außerhalb eines Gebäudes ist das Signal durch das Wetter gefährdet: Regnet es, so wird ein dünner Strahl schnell komplett durch die einzelnen Tropfen abgelenkt und er verfehlt den Empfänger. Ist es Nebelig oder liegt der Dunst einer Industriestadt zwischen dem Sender und dem Empfänger, so kann die Intensität des Laserstrahls in dem Gasgemisch so weit abnehmen, dass der Empfänger ihn nicht mehr Wahrnehmen kann. Natürlich kann die Verbindung auch einfach durch einen lichtundurchlässigen Gegenstand unterbrochen werden. Mögliche Lösungen oder Lösungsansätze folgen im nächsten Abschnitt.
+			\subsubsection{Einsatzgebiete}
+			Laser werden in vielen Gebieten zur Datenübertragung genutzt: 
+			
+			Natürlich einmal, wie in dem Versuch, direkt und ohne extra Leiter. Speziell bei der Kommunikation im Weltall wird die unübertreffbare Geschwindigkeit des Laserlichts genutzt, um die Entfernungen zu überwinden. Doch das Licht ist noch nicht das ,,non-plus-ultra''. Im Weltall ist auch die Geschwindigkeit des Lichts relativ gering, für das Zurücklegen mancher Strecke nimmt es mehrere Sekunden, Minuten, Stunden oder gar Jahre in Anspruch. 
+
+			Das schnelle Internet ist im Anmarsch. Da aber nicht überall Sendemasten für Laserverbindungen aufgestellt werden können, und die Intensität des Lasers auch in der Luft relativ schnell abnimmt, hat man Lichtwellenleiter erforscht. Monomode Glasfaserkabel besitzen im Kern eine Faser aus Siliziumoxid (Quarzsand) mit wenigen Mikrometern Durchmesser, der Durchmesser günstigerer Kabel ist etwas größer \cite[vgl. S.100]{laser_ldal}. Die Faser ist von einem wenige Millimeter breiten Kunststoffmantel umhüllt. Obwohl die Glasfaserkabel sich winden, geht das Licht, das sie leiten, nicht verloren. Die beiden Schichten des Kabels, Siliziumoxid und Kunststoff, bilden eine Reflexionsschicht. Da der Lichtstrahl relativ parallel zum verlauf des Kabels verläuft, ist der Einfallswinkel, wenn er der Siliziumoxid verlassen möchte, sehr klein. Ist der Einfallswinkel entsprechend klein, wird nicht mehr nur ein Teil des Lichtes zurückreflektiert, sondern das Gesamte (Totalreflexion). Im Alltag kann man dieses Gesetz der Physik erleben, wenn man sich einem Gewässer nähert. Blickt man senkrecht ins Wasser, so ist der Grund gut erkennbar. Schaut man etwas flacher, so wird das gegenüberliegende Ufer durchscheinend sichtbar, der Grund bleibt aber weiterhin erkennbar. Wenn nun aber sehr flach über das Wasser geschaut wird, so ist der Grund nicht mehr zu sehen, dafür das andere Ufer in voller Schärfe. Das gesamte vom gegenüberliegenden Ufer geworfene Licht wurde in die Augen des Betrachters reflektiert.			
+			
+			Mit einem Laser kann auch die Oberfläche einer CD/DVD abgetastet werden, und die Informationen ausgelesen werden: Auf den silbernen Scheiben sind die Daten binär gespeichert, die 1 und 0 werden durch kurze oder lange Hügel repräsentiert. Der auf diese Hügel treffende Laserstrahl wird reflektiert und landet auf einem Lichtsensor. Ist der Hügel zu ende, so wird der Laserstrahl in dem Tal anders reflektiert: Er verfehlt den Lichtsensor. Aber nicht nur CDs können damit abgetastet werden. Generell kann dies zur Erforschung der Oberflächenstruktur von Stoffen geschehen. Je nach Auslenkung des Laserstrahls liegt ein entsprechendes Tal oder ein Hügel vor.
+		\subsection{Fazit}
+			\subsubsection{Ist der Laser nützlich?}
+			Auf die Frage, ob der Laser nützlich ist, kann nur mit ,,Ja'' geantwortet werden. Mit einer Geschwindigkeit von etwa $300 000 000\frac{m}{s}$ bzw. $1 000 000 000\frac{km}{h}$ im Vakuum ist das Licht der schnellste Bote, dem wir unsere Botschaften bis jetzt übergeben können. Aber nicht nur zur Übertragung von Nachrichten ist das spezielle Licht nützlich. Auch in der Forschung, Medizin, Produktion etc. wird es erfolgreich eingesetzt.
+			\subsubsection{In wie fern ist er Zukunftsweisend?}
+			Die minimale Wellenlänge $\lambda$ und damit maximale Frequenz des Lichts ist noch nicht erforscht, man nähert sich aber bereits der Röntgen-Strahlung mit Lasern an. Die Wellenlänge von Röntgen-Strahlung liegt in etwas bei $\lambda=1nm$. Damit wäre dann auch die hochauflösende Durchleuchtung biologischer Lebensformen mithilfe von Licht möglich oder Datenübertragungen mit sehr hoher Geschwindigkeit. Auch die Kernfusion, für die sehr viel Energie notwendig ist, lässt sich mit Lasern einfacher gestalten, da sich diese soweit fokussieren lassen, dass der Brennpunkt ihrer Wellenlänge gleicht - mehrere Gigawatt auf $1nm^3$ bringen vermutlich alles zum Schmelzen. Der Mensch ist aber mit Sicherheit noch nicht am Ende der Forschung angekommen. Wenn er sich die Gelegenheit lässt, wird er neue, schnellere Methoden finden, entwickeln, verbessern und für neuere verwerfen.
+			\subsubsection{Neue Technologien durch Laser?}
+			Der Laser hat in sehr viele Bereiche des Lebens bereits Einzug gehalten: In der Fertigung ist er mit absoluter Genauigkeit dabei, im Handwerk in Messgeräten, die Navigation nutzt spezielle Laserkreisel bevorzugt in Flugzeugen, zu Hause ist der Laser im CD-Player und PC und in der Forschung nicht mehr wegzudenken. Die Holographie wurde mit dem Laser möglich. Wenn sie weiter entwickelt wird, bieten sich hier grandiose Aussichten: Wenn der Film im Kino ohne Brille nicht nur zu Anfassen aussieht, sondern sich die Szene sogar von allen Perspektiven betrachten lässt, dann ist die Begeisterung der Zuschauer höchstwahrscheinlich nicht mehr zu bremsen. In der Medizin ist auch mit fortschritten bezüglich des Lasers zu rechnen. Augenoperationen werden sicherer werden, das zerschießen von Harnsteinen mit einem Laser wird schneller von statten gehen. Generell wird das Risiko bei einer Operation sinken, dann ein Laserstrahl kann nicht mit Keimen verunreinigt werden und ist damit ein absolut sauberes Skalpell.
+			\subsubsection{Einsatz im akuten Notfall?}
+			In der Einleitung erwähnte ich bereits, dass, wenn eine Nachricht oder Information zu spät ankommt, das Menschenleben kosten kann. Schaut man nun in den Osten, mit Blick auf die aktuellen Ereignisse in Japan, so fällt neben den nun zigtausenden Obdachlosen und den die Umwelt unkontrolliert mit Radioaktivität anreichernden Atomkraftwerken auch auf, dass die Menschen verzweifelt über ihre Familienangehörigen Bescheid wissen wollen. Durch die tektonischen Verschiebungen jedoch sind viele Netze zusammengebrochen, die metallenen Verbindungen sind zerrissen. Google bietet ein Portal an, wo Informationen über Personen hinterlassen werden können, so dass man sich informieren kann, ob die Verwandten in Sicherheit sind. Aber dieses Portal nützt nicht besonders viel, wenn kaum jemand in Japan darauf zugreifen kann. Ein erdbebensicheres, weltumspannendes Kommunikationsnetz zu errichten, ist nicht einfach. Aber gerade in Notsituationen ist es relativ einfach, eine Station zu errichten, die mit einem kleinen Generator gespeist, über Satelliten die Verbindung mit dem Rest der Welt aufrecht erhält. Darüber könnten dann auch schnell Hilferufe ausgesandt werden, wenn es an speziellen Nahrungsmitteln oder Medikamenten mangelt oder weitere Ereignisse auftreten, über die andere schnellstens informiert werden sollten.
+			\subsection*{}
+			Insgesamt ist Laser also eine sehr nützliche Technik, die in beinahe allen Bereichen des Lebens Fuß gefasst hat und nun nicht mehr Wegzudenken ist.
+	\newpage
+	\appendix
+	\section{Literaturverzeichnis}
+	\nocite{*} %alle einträge angeben
+
+	\printbibliography
+	%\bibliographystyle{plain}
+	
+	%debug\newpage	
+	\section{Anhang}
+	Alle Abbildungen sowie weitere Fotos finden sich in dem Ordner \textit{img}.
+	%debug\newpage
+	\section{Erklärung}
+	Ich erkläre, dass ich die Facharbeit selbstständig und ohne fremde Hilfe angefertigt und nur die im Literaturverzeichnis angeführten Quellen und Hilfsmittel benutzt habe. Insbesondere versichere ich, dass ich alle wörtlichen und sinngemäßen Übernahmen aus anderen Werken als solche kenntlich gemacht habe.
+	\\[4em]
+	\begin{tabular}{p{5cm}}\hline
+		Ort, Datum
+	\end{tabular}	
+	\hfill
+	\begin{tabular}{p{4cm}}\hline
+		Unterschrift
+	\end{tabular}
+\end{small}
+\end{document}
+
+
